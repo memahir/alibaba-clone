@@ -41,8 +41,8 @@ export default function ProductGrid() {
               <Image
                 src={product.image}
                 alt={product.title}
-                width={150}
-                height={150}
+                width={40}
+                height={40}
                 className="rounded-lg"
               />
               <h3 className="text-lg font-semibold mt-3">{product.title}</h3>
