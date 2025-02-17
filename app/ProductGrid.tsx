@@ -27,22 +27,60 @@ const products = [
     price: "$49.99",
     image: "/images/product4.jpg",
   },
+  {
+    id: 5,
+    title: "Sports Watch",
+    price: "$19.99",
+    image: "/images/product5.jpg",
+  },
+  {
+    id: 6,
+    title: "Leather Wallet",
+    price: "$24.99",
+    image: "/images/product6.jpg",
+  },
 ];
 
 export default function ProductGrid() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-6">Featured Products</h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="container mx-auto px-4 py-8 grid grid-cols-4 gap-6">
+      {/* Filter Section */}
+      <div className="col-span-1 bg-gray-100 p-4 rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Filters</h3>
+        <div>
+          <label className="block font-medium">Category</label>
+          <select className="w-full p-2 border rounded mt-1">
+            <option>All Categories</option>
+            <option>Apparel & Accessories</option>
+            <option>Men's Clothing</option>
+            <option>Women's Clothing</option>
+            <option>Sportswear</option>
+          </select>
+        </div>
+        <div className="mt-4">
+          <label className="block font-medium">Price Range</label>
+          <input type="range" className="w-full mt-1" min="10" max="100" />
+        </div>
+        <div className="mt-4">
+          <label className="block font-medium">Supplier Features</label>
+          <div className="flex flex-col space-y-2">
+            <label><input type="checkbox" /> ≤1h response time</label>
+            <label><input type="checkbox" /> Delivery by Mar 07</label>
+            <label><input type="checkbox" /> Delivery by Mar 13</label>
+          </div>
+        </div>
+      </div>
+      
+      {/* Product Section */}
+      <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <Card key={product.id} className="p-4 shadow-lg">
             <CardContent className="flex flex-col items-center">
               <Image
                 src={product.image}
                 alt={product.title}
-                width={40}
-                height={40}
+                width={100}
+                height={100}
                 className="rounded-lg"
               />
               <h3 className="text-lg font-semibold mt-3">{product.title}</h3>

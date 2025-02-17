@@ -1,3 +1,5 @@
+'use client'
+import { useState } from "react";
 import NavbarBrand from "./NavbarBrand";
 import NavbarContent from "./NavbarContent";
 import NavbarItem from "./NavbarItem";
@@ -7,12 +9,15 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { FiShoppingCart } from "react-icons/fi";
 import { TfiWorld } from "react-icons/tfi";
 import { LiaFlagUsaSolid } from "react-icons/lia";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function Navbar() {
+  const [dropdownOpen, setDropdownOpen] = useState<number | null>(null);
+
   return (
     <div>
       <nav className="bg-white">
-        <div className=" flex items-center justify-between p-4">
+        <div className="flex items-center justify-between p-4">
           {/* Brand Logo & Searchbar */}
           <NavbarBrand>
             <div className="flex items-center gap-4">
@@ -60,49 +65,63 @@ export default function Navbar() {
       </nav>
 
       {/* Sub Navbar */}
-      <div className="bg-white text-sm">
+      <div className="bg-white text-sm border-t">
         <div className="container mx-auto flex items-center justify-between px-6 py-2">
           {/* Left Section */}
-          <div className="flex space-x-6">
-            <NavbarItem>
-              <span className="font-semibold text-gray-700 cursor-pointer hover:text-orange-600">
-                All Categories
-              </span>
-            </NavbarItem>
-            <NavbarItem>
-              <span className="cursor-pointer hover:text-orange-600">
-                Featured Section
-              </span>
-            </NavbarItem>
-            <NavbarItem>
-              <span className="cursor-pointer hover:text-orange-600">
-                Trade Assurance
-              </span>
-            </NavbarItem>
+          <div className="flex space-x-6 relative">
+            {[
+              { label: "All Categories", items: ["Electronics", "Clothing", "Home & Garden", "Beauty & Health"] },
+              { label: "Featured Section", items: ["Top Sellers", "New Arrivals", "Best Deals"] },
+              { label: "Trade Assurance", items: ["Secure Payments", "Refund Policy", "Buyer Protection"] }
+            ].map((menu, index) => (
+              <NavbarItem key={index}>
+                <div
+                  className="font-semibold text-gray-700 cursor-pointer hover:text-orange-600 flex items-center gap-1 relative"
+                  onMouseEnter={() => setDropdownOpen(index)}
+                  onMouseLeave={() => setDropdownOpen(null)}
+                >
+                  {menu.label} <IoIosArrowDown />
+                </div>
+                {dropdownOpen === index && (
+                  <div className="absolute left-0 top-10 w-48 bg-white shadow-lg border rounded-md z-50">
+                    <ul className="py-2">
+                      {menu.items.map((item, i) => (
+                        <li key={i} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </NavbarItem>
+            ))}
           </div>
 
           {/* Right Section */}
-          <div className="flex space-x-6 text-gray-600">
-            <NavbarItem>
-              <span className="cursor-pointer hover:text-orange-600">
-                Buyer Central
-              </span>
-            </NavbarItem>
-            <NavbarItem>
-              <span className="cursor-pointer hover:text-orange-600">
-                Help Center
-              </span>
-            </NavbarItem>
-            <NavbarItem>
-              <span className="cursor-pointer hover:text-orange-600">
-                Get The App
-              </span>
-            </NavbarItem>
-            <NavbarItem>
-              <span className="cursor-pointer hover:text-orange-600">
-                Become a Supplier
-              </span>
-            </NavbarItem>
+          <div className="flex space-x-6 text-gray-600 relative">
+            {[
+              { label: "Buyer Central", items: ["Purchase Guide", "Order Tracking", "Returns"] },
+              { label: "Help Center", items: ["FAQs", "Customer Support", "Contact Us"] },
+              { label: "Get The App", items: ["iOS App", "Android App", "Desktop Version"] },
+              { label: "Become a Supplier", items: ["Seller Guide", "Partnerships", "Marketing Tools"] }
+            ].map((menu, index) => (
+              <NavbarItem key={index + 3}>
+                <div
+                  className="cursor-pointer hover:text-orange-600 flex items-center gap-1 relative"
+                  onMouseEnter={() => setDropdownOpen(index + 3)}
+                  onMouseLeave={() => setDropdownOpen(null)}
+                >
+                  {menu.label} <IoIosArrowDown />
+                </div>
+                {dropdownOpen === index + 3 && (
+                  <div className="absolute right-0 top-10 w-48 bg-white shadow-lg border rounded-md z-50">
+                    <ul className="py-2">
+                      {menu.items.map((item, i) => (
+                        <li key={i} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </NavbarItem>
+            ))}
           </div>
         </div>
       </div>
