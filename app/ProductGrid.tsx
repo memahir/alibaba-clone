@@ -52,8 +52,8 @@ export default function ProductGrid() {
           <select className="w-full p-2 border rounded mt-1">
             <option>All Categories</option>
             <option>Apparel & Accessories</option>
-            <option>Men's Clothing</option>
-            <option>Women's Clothing</option>
+            <option>Mens Clothing</option>
+            <option>Womens Clothing</option>
             <option>Sportswear</option>
           </select>
         </div>
